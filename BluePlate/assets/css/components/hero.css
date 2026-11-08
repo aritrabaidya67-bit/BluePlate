@@ -1,0 +1,329 @@
+.hero-section {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  padding:82px 0 82px;
+  background:linear-gradient(115deg,#f8fbff 0%,#fff 55%,#f4f8ff 100%)
+}
+.hero-orb {
+  position:absolute;
+  z-index:-1;
+  border-radius:50%;
+  pointer-events:none
+}
+.hero-orb-one {
+  width:470px;
+  height:470px;
+  right:-180px;
+  top:-210px;
+  background:radial-gradient(circle,rgba(89,143,255,.17),rgba(89,143,255,0) 70%)
+}
+.hero-orb-two {
+  width:400px;
+  height:400px;
+  left:-270px;
+  bottom:-260px;
+  background:radial-gradient(circle,rgba(255,186,143,.15),rgba(255,186,143,0) 70%)
+}
+.hero-copy-wrap {
+  position:relative;
+  z-index:2;
+  padding:16px 20px 18px 0
+}
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid #dce8ff;
+  border-radius:100px;
+  padding:8px 12px;
+  background:#fff;
+  color:#557099;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.13em;
+  margin-bottom:22px
+}
+.eyebrow-spark {
+  color:var(--blue);
+  font-size:15px
+}
+.hero-title {
+  font-family:var(--font-display);
+  font-size:clamp(48px,6.3vw,76px);
+  line-height:1.04;
+  letter-spacing:-.075em;
+  font-weight:800;
+  margin:0;
+  max-width:620px
+}
+.hero-title span {
+  color:var(--blue)
+}
+.hero-description {
+  max-width:430px;
+  color:#718097;
+  font-size:15px;
+  line-height:1.8;
+  margin:23px 0 25px
+}
+.hero-search {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  max-width:520px;
+  padding:7px 7px 7px 16px;
+  background:#fff;
+  border:1px solid #e5ebf4;
+  border-radius:14px;
+  box-shadow:0 12px 35px rgba(35,67,122,.07);
+  transition:.25s
+}
+.hero-search:focus-within {
+  border-color:#a8c2f4;
+  box-shadow:0 12px 35px rgba(35,67,122,.12),0 0 0 4px rgba(40,103,232,.07)
+}
+.search-pin {
+  font-size:27px;
+  color:var(--blue);
+  line-height:1;
+  transform:rotate(-25deg)
+}
+.hero-search input {
+  min-width:0;
+  flex:1;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--ink);
+  font-size:12px
+}
+.hero-search input::placeholder {
+  color:#9ba7b7
+}
+.hero-search button {
+  border:0;
+  border-radius:10px;
+  background:var(--blue);
+  color:#fff;
+  padding:12px 17px;
+  font-size:11px;
+  font-weight:700;
+  transition:.2s
+}
+.hero-search button:hover {
+  background:var(--blue-dark)
+}
+.hero-search button span {
+  margin-left:8px;
+  font-size:17px
+}
+.hero-meta {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-top:26px
+}
+.avatar-stack {
+  display:flex;
+  padding-left:3px
+}
+.avatar-stack span {
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  margin-left:-4px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:#f0e2d8;
+  font-size:15px
+}
+.avatar-stack span:nth-child(2) {
+  background:#e3edff
+}
+.avatar-stack span:nth-child(3) {
+  background:#fbe8db
+}
+.hero-meta>div:nth-child(2) {
+  display:flex;
+  flex-direction:column;
+  gap:2px
+}
+.hero-meta strong {
+  font-size:10px
+}
+.hero-meta small {
+  font-size:9px;
+  color:#8a96a8
+}
+.hero-rating {
+  display:flex;
+  flex-direction:column;
+  border-left:1px solid #e2e8f1;
+  padding-left:17px;
+  margin-left:5px
+}
+.hero-rating b {
+  font-size:12px;
+  color:#ed9b2b
+}
+.hero-visual-wrap {
+  position:relative;
+  padding-left:35px
+}
+.hero-visual {
+  position:relative;
+  max-width:520px;
+  margin-left:auto;
+  height:465px;
+  border-radius:48% 48% 35% 35% / 42% 42% 25% 25%;
+  overflow:visible
+}
+.hero-image-frame {
+  position:absolute;
+  inset:15px 18px 0 0;
+  overflow:hidden;
+  border-radius:48% 48% 35% 35% / 42% 42% 25% 25%;
+  background:#e9eff8;
+  box-shadow:0 35px 70px rgba(21,45,91,.15)
+}
+.hero-image-frame img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.03);
+  animation:heroDrift 14s ease-in-out infinite alternate
+}
+.hero-image-shade {
+  position:absolute;
+  inset:15px 18px 0 0;
+  border-radius:48% 48% 35% 35% / 42% 42% 25% 25%;
+  background:linear-gradient(180deg,rgba(19,38,68,0) 50%,rgba(19,38,68,.15))
+}
+.floating-note {
+  position:absolute;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 15px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:15px;
+  box-shadow:0 15px 38px rgba(29,52,89,.14);
+  animation:floatNote 5s ease-in-out infinite
+}
+.floating-note strong,.floating-note small {
+  display:block;
+  white-space:nowrap
+}
+.floating-note strong {
+  font-size:10px
+}
+.floating-note small {
+  font-size:9px;
+  color:#8995a6;
+  margin-top:3px
+}
+.note-delivery {
+  top:75px;
+  left:-2px
+}
+.note-icon {
+  display:grid;
+  place-items:center;
+  width:32px;
+  height:32px;
+  border-radius:11px;
+  background:#e9f2ff;
+  color:var(--blue);
+  font-size:19px
+}
+.note-delivery i {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#36bf8a;
+  margin-left:3px;
+  box-shadow:0 0 0 4px #e4f8ef
+}
+.note-time {
+  right:-7px;
+  bottom:83px;
+  animation-delay:-2s
+}
+.time-icon {
+  display:grid;
+  place-items:center;
+  width:32px;
+  height:32px;
+  border-radius:11px;
+  background:#fff0e7;
+  color:#e28c52;
+  font-size:20px
+}
+.hero-sticker {
+  position:absolute;
+  right:-8px;
+  top:18px;
+  width:84px;
+  height:84px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:var(--blue);
+  color:#fff;
+  transform:rotate(11deg);
+  box-shadow:0 13px 24px rgba(40,103,232,.25)
+}
+.hero-sticker span {
+  font-size:8px;
+  letter-spacing:.08em
+}
+.hero-sticker b {
+  font-size:22px;
+  line-height:1.1
+}
+.hero-caption {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:10px;
+  margin:17px 19px 0 0;
+  color:#7c8ba1;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.16em
+}
+.caption-line {
+  width:46px;
+  height:1px;
+  background:#cbd7e7
+}
+.hero-bottom-line {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#e5ebf4,transparent)
+}
+@keyframes heroDrift {
+  from {
+    transform:scale(1.03) translateY(0)
+  }
+  to {
+    transform:scale(1.1) translateY(-9px)
+  }
+}
+@keyframes floatNote {
+  0%,100% {
+    transform:translateY(0)
+  }
+  50% {
+    transform:translateY(-9px)
+  }
+}
