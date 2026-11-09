@@ -12,7 +12,7 @@ import { FoodCard } from "./components/FoodCard.js";
 import { HomePage } from "./pages/HomePage.js";
 import { dishes, restaurants } from "./data/menu.js";
 import { SearchSuggestions } from "./components/SearchSuggestions.js";
-import { addToCart, changeQuantity, clearCart, getCartTotals, getState, getCurrentAccount, removeFromCart, reorderItems, saveOrder, setCoupon, setProfile, subscribe, toggleFavorite, exportBackup, importBackup, resetAllData, getStorageUsage, validateCoupon, restoreSession, registerAccount, loginAccount, logoutAccount } from "./state/store.js";
+import { addToCart, changeQuantity, clearCart, getCartTotals, getState, getCurrentAccount, removeFromCart, reorderItems, saveOrder, setCoupon, setProfile, subscribe, toggleFavorite, deleteAccountData, validateCoupon, restoreSession, registerAccount, loginAccount, logoutAccount } from "./state/store.js";
 import { createId, escapeHTML, formatCurrency } from "./utils/helpers.js";
 
 const app = document.querySelector("#app");
@@ -311,28 +311,7 @@ function openProfile() {
   const account = getCurrentAccount();
   Object.entries({ name: "profile-name", phone: "profile-phone", address: "profile-address", city: "profile-city", pincode: "profile-pincode" }).forEach(([key, id]) => $(`#${id}`).val(profile[key] || ""));
   $("#profile-account-email").text(account?.email || "");
-  updateStorageMeter();
   bootstrap.Modal.getOrCreateInstance(document.querySelector("#profileModal")).show();
-}
-
-function updateStorageMeter() {
-  const usage = getStorageUsage();
-  const percent = Math.min(100, (usage.used / usage.limit) * 100);
-  $("#storage-usage-label").text(`${(usage.used / 1024).toFixed(1)} KB of ${(usage.limit / 1024).toFixed(0)} KB used`);
-  $("#storage-meter-fill").css("width", `${percent}%`).toggleClass("is-near-limit", percent >= 80);
-}
-
-function downloadBackup() {
-  const blob = new Blob([exportBackup()], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `blueplate-backup-${new Date().toISOString().slice(0, 10)}.json`;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1200);
-  showToast("Your backup file is ready.");
 }
 
 function resetFilters() {
@@ -640,38 +619,12 @@ function startApp() {
     }
   });
 
-  $(document).on("click", "[data-export-data]", downloadBackup);
-
-  $(document).on("click", "[data-import-data]", function () {
-    $("#import-data-file").trigger("click");
-  });
-
-  $(document).on("change", "#import-data-file", async function () {
-    const file = this.files?.[0];
-    if (!file) return;
-    if (file.size > 2097152) {
-      this.value = "";
-      return showToast("Backup files must be no larger than 2 MiB.", "error");
-    }
+  $(document).on("click", "[data-delete-account]", function () {
+    if (!window.confirm("Permanently delete your account and remove all saved data from this browser? This cannot be undone.")) return;
     try {
-      const backup = JSON.parse(await file.text());
-      importBackup(backup);
-      updateStorageMeter();
-      this.value = "";
-      showToast("Your BluePlate data has been restored.");
-    } catch (error) {
-      this.value = "";
-      showToast(error.message || "This backup could not be restored.", "error");
-    }
-  });
-
-  $(document).on("click", "[data-reset-local-data]", function () {
-    if (!window.confirm("Reset your saved cart, favourites, orders and profile on this device? This cannot be undone.")) return;
-    try {
-      resetAllData();
-      $("#profile-form")[0].reset();
-      updateStorageMeter();
-      showToast("Your saved BluePlate data has been reset.");
+      deleteAccountData();
+      showToast("Your account and all data have been removed.");
+      window.location.reload();
     } catch (error) {
       showToast(error.message, "error");
     }

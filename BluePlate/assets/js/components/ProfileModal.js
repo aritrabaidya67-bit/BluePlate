@@ -20,13 +20,8 @@ export function ProfileModal() {
             <details class="data-management-panel">
               <summary>Manage saved data</summary>
               <div class="data-management-content">
-                <span id="storage-usage-label">Your saved information</span>
-                <div class="storage-meter"><i id="storage-meter-fill"></i></div>
                 <div class="data-management-actions">
-                  <button type="button" data-export-data>Download backup</button>
-                  <button type="button" data-import-data>Restore backup</button>
-                  <input class="d-none" id="import-data-file" type="file" accept="application/json,.json">
-                  <button type="button" class="data-reset-button" data-reset-local-data>Reset saved data</button>
+                  <button type="button" class="data-delete-button" data-delete-account>Delete account &amp; clear all data</button>
                 </div>
               </div>
             </details>

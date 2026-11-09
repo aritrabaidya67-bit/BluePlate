@@ -330,38 +330,22 @@ export function getCartTotals() {
   return { subtotal, delivery, discount, tax, total: subtotal + delivery + tax - discount };
 }
 
-export function getStorageUsage() {
+export function deleteAccountData() {
+  if (!activeUserId) throw new Error("Please sign in before deleting your account.");
+  const userId = activeUserId;
   try {
-    const value = activeUserId ? localStorage.getItem(getUserStorageKey(activeUserId)) || "" : "";
-    return { used: new TextEncoder().encode(value).length, limit: MAX_STORAGE_BYTES };
+    localStorage.removeItem(getUserStorageKey(userId));
   } catch {
-    return { used: 0, limit: MAX_STORAGE_BYTES };
+    throw new Error("Your browser could not remove the saved data. Check your browser settings and try again.");
   }
-}
-
-export function importBackup(data) {
-  if (!activeUserId) throw new Error("Please sign in before restoring a backup.");
-  if (!isRecord(data) || !Array.isArray(data.cart) || !Array.isArray(data.favorites) || !Array.isArray(data.orders)) throw new Error("This file is not a valid BluePlate backup.");
-  const cart = data.cart.filter(item => isRecord(item) && typeof item.id === "string" && typeof item.name === "string" && Number.isFinite(item.price) && item.price >= 0 && Number.isInteger(item.quantity) && item.quantity >= 1 && item.quantity <= 20).map(item => ({ id: item.id.slice(0, 80), name: item.name.slice(0, 100), price: item.price, image: getLocalImage(item), restaurant: typeof item.restaurant === "string" ? item.restaurant.slice(0, 100) : "", quantity: item.quantity }));
-  if (cart.length !== data.cart.length) throw new Error("The backup contains invalid cart items. Your existing data has not been changed.");
-  const favorites = data.favorites.filter(item => typeof item === "string");
-  if (favorites.length !== data.favorites.length) throw new Error("The backup contains invalid favourites. Your existing data has not been changed.");
-  const validOrders = data.orders.every(order => isRecord(order) && typeof order.id === "string" && Array.isArray(order.items) && isRecord(order.customer) && Number.isFinite(order.total) && order.items.every(item => isRecord(item) && typeof item.id === "string" && typeof item.name === "string" && Number.isFinite(item.price) && Number.isInteger(item.quantity) && item.quantity > 0));
-  if (!validOrders) throw new Error("The backup contains invalid order records. Your existing data has not been changed.");
-  const profile = normalizeProfile(data.profile);
-  const orders = data.orders.map(order => ({ ...order, items: order.items.map(item => ({ ...item, image: getLocalImage(item) })) }));
-  const next = { cart, favorites: [...new Set(favorites)], orders, coupon: Object.hasOwn(coupons, data.coupon) ? data.coupon : "", profile };
-  const previous = state;
-  persist(next);
-  state = next;
+  const accounts = readAccounts().filter(account => account.id !== userId);
+  try {
+    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(accounts));
+  } catch { }
+  try {
+    sessionStorage.removeItem(SESSION_KEY);
+  } catch { }
+  activeUserId = "";
+  state = clone(initialState);
   notify();
-  return { restored: true, previousCount: previous.orders.length, orderCount: next.orders.length };
-}
-
-export function resetAllData() {
-  updateState(current => ({ ...clone(initialState), profile: { ...clone(initialState.profile), name: current.profile.name, phone: current.profile.phone } }));
-}
-
-export function exportBackup() {
-  return JSON.stringify(state, null, 2);
 }

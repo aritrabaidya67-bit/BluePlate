@@ -61,7 +61,7 @@ export const restaurants = [
   {
     id: "r2",
     name: "Spice Route Kitchen",
-    cuisine: "North Indian · Biryani",
+    cuisine: "Indian · Biryani · Tandoor",
     rating: 4.7,
     reviews: "1.8k",
     time: "30–40 min",
@@ -69,8 +69,8 @@ export const restaurants = [
     image: "assets/images/food/restaurant-interior.jpg",
     tag: "Popular near you",
     category: "indian",
-    description: "A North Indian kitchen serving slow-cooked curries, fragrant biryani and tandoor classics.",
-    speciality: "Biryani, curries and tandoor",
+    description: "An Indian kitchen serving slow-cooked curries, fragrant biryani, crispy dosas and tandoor classics.",
+    speciality: "Biryani, dosa, curries and tandoor",
     offer: "Use BLUEPLATE15 for 15% off orders above ₹499.",
     offerCode: "BLUEPLATE15"
   },
@@ -470,5 +470,35 @@ export const dishes = [
     vegetarian: true,
     prep: "8 min",
     spicy: "None"
+  },
+  {
+    id: "f23",
+    name: "Crispy Masala Dosa",
+    restaurant: "Spice Route Kitchen",
+    category: "indian",
+    price: 199,
+    oldPrice: 229,
+    rating: 4.7,
+    badge: "South Indian classic",
+    description: "Golden rice-lentil crepe stuffed with spiced potato, served with coconut chutney and sambar.",
+    image: "assets/images/food/masala-dosa.jpg",
+    vegetarian: true,
+    prep: "20 min",
+    spicy: "Medium"
+  },
+  {
+    id: "f24",
+    name: "Tandoori Paneer Skewers",
+    restaurant: "Spice Route Kitchen",
+    category: "indian",
+    price: 269,
+    oldPrice: null,
+    rating: 4.6,
+    badge: "Grill favourite",
+    description: "Charred paneer cubes marinated in tandoori spices with peppers and onions, fresh off the grill.",
+    image: "assets/images/food/paneer-skewers.jpg",
+    vegetarian: true,
+    prep: "22 min",
+    spicy: "Medium"
   }
 ];
