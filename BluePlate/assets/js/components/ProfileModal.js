@@ -11,7 +11,7 @@ export function ProfileModal() {
             <div class="profile-account-email"><span>Signed in as</span><strong id="profile-account-email"></strong></div>
             <form id="profile-form" class="row g-3">
               <div class="col-12"><label class="form-label" for="profile-name">Full name</label><input class="form-control" id="profile-name" name="name" maxlength="70" autocomplete="name" required></div>
-              <div class="col-12"><label class="form-label" for="profile-phone">Phone number</label><input class="form-control" id="profile-phone" name="phone" type="tel" pattern="[0-9+ ()-]{8,16}" autocomplete="tel" required></div>
+              <div class="col-12"><label class="form-label" for="profile-phone">Phone number</label><input class="form-control" id="profile-phone" name="phone" type="tel" pattern="[0-9 +\(\)\-]{8,16}" autocomplete="tel" required></div>
               <div class="col-12"><label class="form-label" for="profile-address">Delivery address</label><textarea class="form-control" id="profile-address" name="address" rows="2" maxlength="240" autocomplete="street-address" required></textarea></div>
               <div class="col-md-7"><label class="form-label" for="profile-city">City</label><input class="form-control" id="profile-city" name="city" maxlength="60" autocomplete="address-level2" required></div>
               <div class="col-md-5"><label class="form-label" for="profile-pincode">PIN code</label><input class="form-control" id="profile-pincode" name="pincode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="postal-code" required></div>
