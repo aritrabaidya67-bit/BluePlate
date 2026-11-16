@@ -290,7 +290,7 @@ I designed the app **mobile-first** — the base styles are for small screens, a
 Student Code: **BWU/BCA/25/055**
 
 🎓 **Brainware University**
-Department of Computer Applications (BCA)
+Department of Computational Sciences (BCA(H))
 
 GitHub: [github.com/aritrabaidya67-bit](https://github.com/aritrabaidya67-bit)
 
